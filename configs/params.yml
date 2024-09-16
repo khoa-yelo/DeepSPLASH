@@ -1,0 +1,35 @@
+# output root directory
+outdir: "/oak/stanford/groups/horence/khoa/scratch/data/splash_outs/efaecium_v3"
+temp_dir: "/scratch/groups/horence/khoa/tmp"
+bin: "/oak/stanford/groups/horence/khoa/scratch/repos/DeepSPLASH/workflows/bin"
+
+### SPLASH out params
+splash_result_tsv: "/scratch/groups/horence/dcotter1/runs/E_faecium_CollEtAl/result.after_correction.scores.tsv"
+id_mapping: "/scratch/groups/horence/dcotter1/runs/E_faecium_CollEtAl/sample_name_to_id.mapping.txt"
+satc_files: "/scratch/groups/horence/dcotter1/runs/E_faecium_CollEtAl/result_satc"
+
+### Filter params
+num_anchors: 150000
+num_clusters: 3000
+effect_size: 0.7
+lookup_table: "/oak/stanford/groups/horence/khoa/scratch/data/lookup_table/tables/082924/artifacts.slt"
+splash_bin: "/oak/stanford/groups/horence/dcotter1/splash-2.6.1/"
+filter_output_prefix: "E_faecium_CollEtAl"
+
+### create_seq_repr params
+anchor_list: "" # define only when run process separately
+anchor_cluster: "" # define only when run process separately
+seq_repr_output_prefix: "E_faecium_CollEtAl"
+satc_util_bin: "/oak/stanford/groups/horence/dcotter1/satc_utils/"
+seq_reprs_num_cores: 8
+
+### create_seq_aux params
+seq_aux_output_prefix: "E_faecium_CollEtAl"
+# only set when running module alone
+sample_sequence_tsv: "/oak/stanford/groups/horence/khoa/scratch/data/splash_outs/efaecium_v3/seq_reprs/E_faecium_CollEtAl_sample_sequences.tsv"
+
+
+### Embed evo params
+evo_output_prefix: "E_faecium_CollEtAl"
+extenders_fasta : "/oak/stanford/groups/horence/khoa/scratch/data/splash_outs/efaecium_v3/aux_reprs/E_faecium_CollEtAl_extenders.fasta"
+

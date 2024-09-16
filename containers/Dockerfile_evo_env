@@ -1,0 +1,39 @@
+# the NVIDIA PyTorch image with CUDA included
+FROM nvcr.io/nvidia/pytorch:23.06-py3
+
+# Set the working directory
+WORKDIR /app
+
+# Install Miniconda
+RUN apt-get update && apt-get install -y wget bzip2 && \
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda && \
+    rm Miniconda3-latest-Linux-x86_64.sh && \
+    /opt/conda/bin/conda init bash
+
+# Set environment variables for Conda
+ENV PATH="/opt/conda/bin:${PATH}"
+
+ENV PYTHONPATH="/app/evo:${PYTHONPATH}"
+# (Optional) Example command to run embed.py
+RUN /bin/bash -c "source /opt/conda/etc/profile.d/conda.sh && \
+    conda create -n evo-design python=3.11 -c bioconda -c conda-forge -c defaults && \
+    conda activate evo-design && \
+    conda install -c bioconda prodigal && \
+    pip install --upgrade pip && \
+    pip install torch torchvision torchaudio triton &&\
+    pip install stripedhyena==0.2.2 biopython biotite pandas && \
+    conda clean --all --yes"
+
+# Copy the evo repository into the image
+COPY evo /app/evo
+
+# Ensure the Conda environment is activated and run the Python script
+# This sets the shell to use the Conda environment
+SHELL ["/opt/conda/bin/conda", "run", "-n", "evo-design", "/bin/bash", "-c"]
+
+# Set the entrypoint to the Python script
+ENTRYPOINT ["bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate evo-design && exec \"$@\"", "--"]
+
+# Default to running the Python interpreter
+CMD ["python"]

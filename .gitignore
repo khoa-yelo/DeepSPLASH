@@ -1,0 +1,6 @@
+_store
+*.sif
+temp
+error.*
+.nextflow*
+work/*
